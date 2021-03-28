@@ -307,12 +307,40 @@ import {
         this.editedUser = Object.assign({}, item)
         this.dialog = true
       },
+      
+      //Example for api edit user
+      //  async editUser() {
+      //   let response = await axios.put("user/put", this.user);
+
+      //   if (response.status === 200 && response.data.state) {
+      //      console.log("Updated");
+      //   } else {
+      //      console.log("Not Updated");
+      //   }
+      // },
+
 
       deleteUser (item) {
         this.editedIndex = this.users.indexOf(item)
         this.editedUser = Object.assign({}, item)
         this.dialogDelete = true
       },
+      
+      // Example for api delete user
+      //  async deleteUser() {
+      //   let list = [],
+      //     response = null;
+
+      //   list.push(this.user.id);
+      //   response = await axios.post("user/delete", list);
+
+      //   if (this.$utils.isResponseReturnedOk(response)) {
+      //     console.log("Deleted");
+      //     this.$router.replace(this.$router.currentRoute.meta.path);
+      //   } else {
+      //      console.log("Not Deleted");
+      //   }
+      // },
 
       deleteUserConfirm () {
         this.users.splice(this.editedIndex, 1)
@@ -347,6 +375,22 @@ import {
         this.close()
       }  
       },
+
+      //Example for api add user
+      //  async addUser() {
+      //   let response = await axios.post("user/post", this.user);
+
+      //   if (response.status === 200 && response.data.state) {
+      //     this.$router.push(
+      //       this.$router.currentRoute.path + "/" + response.data.entity.id
+      //     );
+      //    console.log("Created")
+      //   } else if (response.status === 200 && !response.data.state) {
+      //    console.log("Not Created")
+      //   } else {
+      //    console.log("Not Created")
+      //   }
+      // }
     },
   }
 </script>
