@@ -32,6 +32,15 @@
       </div>
        <br> <button type="submit" class="btn btn-primary mt-2">Sign in</button>
     </form>
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+      :right="right"
+      :color="color"
+    >
+    {{snackbarText}}
+    <v-btn text @click="snackbar = false">Close</v-btn>
+    </v-snackbar>
   </div>
 </template>
 
@@ -48,6 +57,11 @@ import router from "../../router/router";
 
 export default {
   data: () => ({
+    snackbar: false,
+    timeout:3000,
+    right: true,
+    color: "success",
+    snackbarText:"",
     userName: "",
     email: "",
     password: "",
@@ -82,11 +96,14 @@ export default {
         );
         this.loginUsers.forEach(e => {
           if(e.userName == this.userName && e.email == this.email && e.password == this.password) {
-            console.log("giriş başarılı");
+            this.snackbar = true;
+            this.snackbarText = `Login successful, welcome ${this.userName}.`
             router.push({path:'/userpage'});
           }
           else {
-            console.log("başarısız!");  
+            this.snackbar = true;
+            this.color = "red"
+            this.snackbarText = `Login failed, Please enter a valid password or e-mail.` 
           }
         });
       }
