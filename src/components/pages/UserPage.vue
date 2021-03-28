@@ -1,4 +1,5 @@
 <template>
+<div>
  <v-data-table
     :headers="headers"
     :items="users"
@@ -164,6 +165,16 @@
       </v-btn>
     </template>
   </v-data-table>
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+      :right="right"
+      :color="color"
+    >
+    {{snackbarText}}
+    <v-btn text @click="snackbar = false">Close</v-btn>
+    </v-snackbar>
+</div>
 </template>
 
 
@@ -176,6 +187,11 @@ import {
 
   export default {
     data: () => ({
+      snackbar: false,
+      timeout:3000,
+      right: true,
+      color: "success",
+      snackbarText:"",
       dialog: false,
       dialogDelete: false,
       headers: [
@@ -345,6 +361,8 @@ import {
       deleteUserConfirm () {
         this.users.splice(this.editedIndex, 1)
         this.closeDelete()
+        this.snackbar = true,
+        this.snackbarText = "User deleted successfully"
       },
 
       close () {
@@ -369,8 +387,12 @@ import {
       if (!this.$v.$invalid) {
          if (this.editedIndex > -1) {
           Object.assign(this.users[this.editedIndex], this.editedUser)
+            this.snackbar = true;
+            this.snackbarText = `User edited successfully`
         } else {
           this.users.push(this.editedUser)
+          this.snackbar = true;
+          this.snackbarText = `User added successfully`
         }
         this.close()
       }  
